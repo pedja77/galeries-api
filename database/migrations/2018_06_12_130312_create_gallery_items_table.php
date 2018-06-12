@@ -13,14 +13,14 @@ class CreateGalleryItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('galery_items', function (Blueprint $table) {
+        Schema::create('gallery_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('galery_id');
+            $table->unsignedInteger('gallery_id');
             $table->string('image_link');
             $table->integer('item_order');
             $table->timestamps();
 
-            $table->foreign('galery_id')->references('id')->on('galeries');
+            $table->foreign('gallery_id')->references('id')->on('galleries');
         });
     }
 
