@@ -20,4 +20,9 @@ class Gallery extends Model
 
         return $this->hasMany('App\GalleryItem');
     }
+
+    public function firstGalleryItem() {
+
+        return $this->hasOne('App\GalleryItem')->orderBy('item_order', 'asc');
+    }
 }

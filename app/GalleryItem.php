@@ -10,4 +10,9 @@ class GalleryItem extends Model
 
         return $this->belongsTo('App\Gallery');
     }
+
+    // public function scopeFirstImage($query) {
+
+    //     $query->orderBy('item_order', 'asc')->take(2);
+    // }
 }

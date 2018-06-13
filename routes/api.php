@@ -19,3 +19,4 @@ use Illuminate\Http\Request;
 
 Route::middleware('api')->post('/register', 'Auth\RegisterController@store');
 Route::middleware('api')->post('/login', 'Auth\LoginController@authenticate')->name('login');
+Route::middleware('api')->get('/galleries', 'GalleriesController@index')->name('galleries');
