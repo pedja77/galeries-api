@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GalleryItem extends Model
 {
-    public function galleries() {
+    public function gallery() {
 
         return $this->belongsTo('App\Gallery');
     }
