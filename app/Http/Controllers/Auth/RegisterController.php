@@ -85,7 +85,7 @@ class RegisterController extends Controller
 
     public function store(Request $request)
     {
-
+         \Log::debug('Login request: ' . $request);
         $validator = $this->validator($request->all());
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);

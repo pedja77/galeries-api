@@ -42,6 +42,7 @@ class LoginController extends Controller
     // grab credentials from the request
     public function authenticate(Request $request)
     {
+        \Log::debug('Login request: ' . $request);
         // grab credentials from the request
         $credentials = $request->only(['email', 'password']);
         try {
