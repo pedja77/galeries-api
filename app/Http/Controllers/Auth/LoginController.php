@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -55,7 +56,14 @@ class LoginController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
         // all good so return the token
-        return response()->json(compact('token'));
+
+
+        //$user = \JWTAuth::toUser([$token]);
+        $user = User::where('email', $request->email)->first();
+        \Log::debug('token' . $user);
+
+        return response()->json(compact('token', 'user'));
+        //return response()->json(compact('token', 'user'));
     }
 
 
