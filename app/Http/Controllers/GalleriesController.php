@@ -3,11 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Gallery;
 use App\GalleryItem;
 
 class GalleriesController extends Controller
 {
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'title' => 'required|string|min:2|max:255',
+            'description' => 'string|max:1000',
+            'gallery_items' => 'required|array|min:1',
+            'gallery_items.*.image_link' => 'required|url'
+        ]);
+    }
+
     public function index() {
         $id = request()->input('id');
         if ($id) {
@@ -37,7 +49,12 @@ class GalleriesController extends Controller
 
     public function store(Request $request) {
 
-        \Log::debug("store gallery " . $request->input('user_id'));
+        //\Log::debug("store gallery " . $request->input('user_id'));
+
+        $validator = $this->validator($request->all());
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        };
 
         $gallery = new Gallery();
         $gallery->user_id = request()->user_id;
