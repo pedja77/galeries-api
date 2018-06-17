@@ -21,3 +21,4 @@ Route::middleware('api')->post('/register', 'Auth\RegisterController@store');
 Route::middleware('api')->post('/login', 'Auth\LoginController@authenticate')->name('login');
 Route::middleware('api')->get('/galleries', 'GalleriesController@index')->name('galleries');
 Route::middleware('api')->get('/galleries/{id}', 'GalleriesController@show');
+Route::middleware('api')->post('/galleries', 'GalleriesController@store');
