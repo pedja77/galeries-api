@@ -27,15 +27,11 @@ class GalleriesController extends Controller
         if ($id) {
             // for MyGalleries at front
              $galleries = Gallery::with(['firstGalleryItem', 'user:id,first_name,last_name'])
-             ->where('title', 'like','%' . $term . '%')
-             ->orWhere('description', 'like','%' . $term . '%')
              ->where('user_id', '=', $id)
             ->orderBy('id', 'desc')
             ->paginate(10);
         } else { // For AllGalleries
              $galleries = Gallery::with(['firstGalleryItem', 'user:id,first_name,last_name'])
-             ->where('title', 'like','%' . $term . '%')
-             ->orWhere('description', 'like','%' . $term . '%')
             ->orderBy('id', 'desc')
             ->paginate(10); //orderBy ????
         }
