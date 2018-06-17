@@ -23,20 +23,22 @@ class GalleriesController extends Controller
 
     public function index() {
         $id = request()->input('id');
+        $term = request()->input('term');
         if ($id) {
             // for MyGalleries at front
              $galleries = Gallery::with(['firstGalleryItem', 'user:id,first_name,last_name'])
+             ->where('title', 'like','%' . $term . '%')
+             ->orWhere('description', 'like','%' . $term . '%')
              ->where('user_id', '=', $id)
             ->orderBy('id', 'desc')
             ->paginate(10);
         } else { // For AllGalleries
              $galleries = Gallery::with(['firstGalleryItem', 'user:id,first_name,last_name'])
+             ->where('title', 'like','%' . $term . '%')
+             ->orWhere('description', 'like','%' . $term . '%')
             ->orderBy('id', 'desc')
             ->paginate(10); //orderBy ????
-        // $galleries = Gallery::where('id', '>', '100')->get(); // For testing, what if there are no galleries
         }
-
-
 
         return $galleries;
     }
