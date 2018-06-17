@@ -22,3 +22,5 @@ Route::middleware('api')->post('/login', 'Auth\LoginController@authenticate')->n
 Route::middleware('api')->get('/galleries', 'GalleriesController@index')->name('galleries');
 Route::middleware('api')->get('/galleries/{id}', 'GalleriesController@show');
 Route::middleware('api')->post('/galleries', 'GalleriesController@store');
+Route::middleware('api')->post('/comments', 'CommentsController@store');
+Route::middleware('api')->delete('.comments/{id}', 'CommentsController@destroy');

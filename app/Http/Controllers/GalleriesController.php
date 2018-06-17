@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Gallery;
 use App\GalleryItem;
+use App\Comment;
 
 class GalleriesController extends Controller
 {
@@ -23,12 +24,12 @@ class GalleriesController extends Controller
     public function index() {
         $id = request()->input('id');
         if ($id) {
-
+            // for MyGalleries at front
              $galleries = Gallery::with(['firstGalleryItem', 'user:id,first_name,last_name'])
              ->where('user_id', '=', $id)
             ->orderBy('id', 'desc')
             ->paginate(10);
-        } else {
+        } else { // For AllGalleries
              $galleries = Gallery::with(['firstGalleryItem', 'user:id,first_name,last_name'])
             ->orderBy('id', 'desc')
             ->paginate(10); //orderBy ????
@@ -43,8 +44,9 @@ class GalleriesController extends Controller
     public function show($id) {
 
         $gallery = Gallery::with(['gallery_items', 'user:id,first_name,last_name'])->findOrFail($id);
+        $comments = Comment::with(['user'])->where('gallery_id', '=', $id)->get();
 
-        return $gallery;
+        return response()->json(compact(['gallery', 'comments']));
     }
 
     public function store(Request $request) {
